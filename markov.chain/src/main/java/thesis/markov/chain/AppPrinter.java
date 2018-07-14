@@ -1,6 +1,7 @@
 package thesis.markov.chain;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import thesis.markov.chain.enums.OperationClass;
 import thesis.markov.chain.enums.OperationType;
@@ -10,6 +11,7 @@ import thesis.markov.chain.operation.TrainStatistic;
 import thesis.markov.chain.operation.Trainer;
 
 public class AppPrinter {
+	static Logger logger = Logger.getLogger(AppPrinter.class.getName());
 
 	public static void main(String[] args) throws IOException {
 		final String trainDataPath = args[0];
@@ -27,27 +29,24 @@ public class AppPrinter {
 	}
 
 	private static void print(OperationClass classType, Statistic statistic) {
-		System.out.println(classType+" INITIAL MATRIX");
+		logger.info(classType+" INITIAL MATRIX");
 		for (OperationType type : OperationType.values()) {
-			System.out.print( "   "+type);
+			logger.info( "   "+type);
 		}
-		System.out.println("");
-		System.out.println(statistic.initialOperationToRatio.values());
-		System.out.println("");
-		System.out.println(classType+" TRANSITION MATRIX");
+		statistic.initialOperationToRatio.values().forEach(v ->logger.info(v.toString()));
+
+		logger.info(classType+" TRANSITION MATRIX");
 		for (OperationType type : OperationType.values()) {
-			System.out.print( "   "+type);
+			logger.info( "   "+type);
 		}
-		System.out.println();
+
 		for (OperationType sourceType : OperationType.values()) {
 			for (OperationType sinkType : OperationType.values()) {
-				System.out.print("  "
+				logger.info("  "
 						+ statistic.transitionToRatio.get(new Transition(sourceType, sinkType)));
 			}
-			System.out.println("");
+
 
 		}
-		System.out.println("");
-		System.out.println("");
 	}
 }
