@@ -10,19 +10,18 @@ import thesis.markov.chain.operation.TrainStatistic;
 import thesis.markov.chain.operation.Trainer;
 
 public class AppPrinter {
-//	public static final String EX_TRAIN_DATA_PATH = "/home/diler/Desktop/Tez/results/exCode/1-100000/requestedOperations.csv";
-//	private static final String EX_TRAIN_DATA_PATH = "/home/diler/Desktop/Tez/results/markov/f80Changed.arff";
-	public static final String EX_TRAIN_DATA_PATH = "/home/diler/Desktop/Tez/results/80.arff";
 
 	public static void main(String[] args) throws IOException {
-		Trainer trainer = new Trainer(EX_TRAIN_DATA_PATH);
+		final String trainDataPath = args[0];
+
+		Trainer trainer = new Trainer(trainDataPath);
 		TrainStatistic totalStatistic = trainer.train();
 
-		printALL(totalStatistic);
+		printAll(totalStatistic);
 		
 	}
 
-	public static void printALL(TrainStatistic totalStatistic) {
+	public static void printAll(TrainStatistic totalStatistic) {
 		print(OperationClass.MAL, totalStatistic.malStatistic);
 		print(OperationClass.NORMAL, totalStatistic.normalStatistic);
 	}

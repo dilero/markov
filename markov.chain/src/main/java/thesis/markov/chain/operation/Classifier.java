@@ -27,7 +27,7 @@ public class Classifier {
 		tester = new Tester(testDataPath);
 		trainStatistic = trainer.train();
 		this.bayes = bayes;
-		AppPrinter.printALL(trainStatistic);
+		AppPrinter.printAll(trainStatistic);
 	}
 
 	public Evaluator classify() throws IOException {

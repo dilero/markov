@@ -10,33 +10,20 @@ import thesis.markov.chain.operation.Classifier;
 import thesis.markov.chain.operation.FeatureWriter;
 
 public class FeatureGenarator {
-	private static final boolean BAYES = true;
-
-	private static final String oldTrainArffFile = MarkovChain.Root_Path + "f123456789.arff";
-	private static final String newTrainArffFile = MarkovChain.Root_Path + "Markov+Weka/f123456789_markov" + BAYES
-			+ ".arff";
-
-	private static final String oldTestArffFile = MarkovChain.Root_Path + "f10.arff";
-	private static final String newTestArffFile = MarkovChain.Root_Path + "Markov+Weka/f10_markov" + BAYES + ".arff";
 
 	public static void main(String[] args) throws IOException {
-		String trainer = oldTrainArffFile;
-		String tester = oldTrainArffFile;
-		String newFile = newTrainArffFile;
+		final String trainer = args[0];
+		final String tester = args[1];
+		final String newFile =args[2];
+		final boolean bayes = Boolean.valueOf(args[3]);
 
-		generate(trainer, tester, newFile);
-
-		trainer = oldTrainArffFile;
-		tester = oldTestArffFile;
-		newFile = newTestArffFile;
-
-		generate(trainer, tester, newFile);
+		generate(trainer, tester, newFile, bayes);
 
 	}
 
-	private static void generate(String trainer, String tester, String newFile) throws IOException {
+	private static void generate(String trainer, String tester, String newFile, boolean bayes) throws IOException {
 		MarkovFeatures markovFeatures = new MarkovFeatures();
-		Classifier classifier = new Classifier(trainer, tester, BAYES);
+		Classifier classifier = new Classifier(trainer, tester, bayes);
 
 		TestData testData = classifier.getTester().test();
 		for (TestDataItem testDataItem : testData.getDataList()) {
